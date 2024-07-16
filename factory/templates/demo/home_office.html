@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME OFFICE</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href={% static "css/style.css" %}>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-transparent navbar-expand-lg">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'img/logofactory.jpg' %}" width="200" height="100" class="d-inline-block align-top" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'pc_armados' %}">PC armados <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'laboratorio' %}">Laboratorios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contacto_list' %}">Contacto</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Categorías
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'pc_gamer' %}">PC Gamers</a>
+                        <a class="dropdown-item" href="{% url 'workstations' %}">Workstations</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'home_office' %}">Oficina-Home Office</a>
+                    </div>
+                </li>
+                <a href="{% url 'carrito' %}">
+                    <img src="{% static 'img/carrito-de-compras.png' %}" width="40" height="40" class="d-inline-block align-top" alt="Carrito de compras">
+                </a>
+            </ul>
+            <a href="{% url 'registrarse' %}">
+                <button>Registrarse</button>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="card-container">
+            <div class="card">
+                <img class="card-img-top" src="{% static 'img/HOMEOFFICE1.webp' %}" alt="Image 1">
+                <div class="card-body">
+                    <h5 class="card-title">PC de Escritorio AMD Ryzen 7 5700G, 32GB RAM, 1TB SSD NVMe 3500MB/s</h5>
+                    <p class="card-text">
+                        <span class="new-price">$616.130</span>
+                        Con Transferencia electrónica
+                        <span class="new-price">$650.020</span>
+                        Con tarjeta crédito/débito
+                    </p>
+                    <button onclick="addToCart('PC de Escritorio AMD Ryzen 7 5700G, 32GB RAM, 1TB SSD NVMe 3500MB/s', 616130, 650020)" class="btn btn-primary">Añadir al carro</button>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="{% static 'img/HOMEOFFICE2.webp' %}" alt="Image 2">
+                <div class="card-body">
+                    <h5 class="card-title">PC de Escritorio Intel Core i5-12400, 16GB RAM, 250GB NVMe, 4TB SSD SATA</h5>
+                    <p class="card-text">
+                        <span class="new-price">$906.700</span>
+                        Con Transferencia electrónica
+                        <span class="new-price">$956.570</span>
+                        Con tarjeta crédito/débito
+                    </p>
+                    <button onclick="addToCart('PC de Escritorio Intel Core i5-12400, 16GB RAM, 250GB NVMe, 4TB SSD SATA', 906700, 956570)" class="btn btn-primary">Añadir al carro</button>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="{% static 'img/HOMEOFFICE3.webp' %}" alt="Image 3">
+                <div class="card-body">
+                    <h5 class="card-title">PC de Escritorio Intel Core i5-12400, 16GB RAM, 500GB SSD NVMe 3500MB/s</h5>
+                    <p class="card-text">
+                        <span class="new-price">$459.000</span>
+                        Con Transferencia electrónica
+                        <span class="new-price">$484.250</span>
+                        Con tarjeta crédito/débito
+                    </p>
+                    <button onclick="addToCart('PC de Escritorio Intel Core i5-12400, 16GB RAM, 500GB SSD NVMe 3500MB/s', 459000, 484250)" class="btn btn-primary">Añadir al carro</button>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="{% static 'img/HOMEOFFICE4.webp' %}" alt="Image 4">
+                <div class="card-body">
+                    <h5 class="card-title">PC de Escritorio Intel Core i5-12400, 16GB RAM, 1TB SSD NVMe Gen4</h5>
+                    <p class="card-text">
+                        <span class="new-price">$477.660</span>
+                        Con Transferencia electrónica
+                        <span class="new-price">$503.930</span>
+                        Con tarjeta crédito/débito
+                    </p>
+                    <button onclick="addToCart('PC de Escritorio Intel Core i5-12400, 16GB RAM, 1TB SSD NVMe Gen4', 477660, 503930)" class="btn btn-primary">Añadir al carro</button>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="{% static 'img/HOMEOFFICE5.webp' %}" alt="Image 5">
+                <div class="card-body">
+                    <h5 class="card-title">PC de Escritorio AMD Ryzen 5 4600G, 8GB RAM, 500GB SSD NVMe</h5>
+                    <p class="card-text">
+                        <span class="new-price">$342.520</span>
+                        Con Transferencia electrónica
+                        <span class="new-price">$361.360</span>
+                        Con tarjeta crédito/débito
+                    </p>
+                    <button onclick="addToCart('PC de Escritorio AMD Ryzen 5 4600G, 8GB RAM, 500GB SSD NVMe', 342520, 361360)" class="btn btn-primary">Añadir al carro</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensaje de confirmación -->
+    <div id="mensaje-confirmacion" class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
+        Añadido al carro.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <script>
+        // Función para añadir al carrito
+        function addToCart(producto, precioEfectivo, precioTarjeta) {
+            // Obtener el carrito actual del localStorage
+            var carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+            // Crear un nuevo objeto producto
+            var nuevoProducto = {
+                nombre: producto,
+                precio_efectivo: precioEfectivo,
+                precio_tarjeta: precioTarjeta
+            };
+
+            // Agregar el nuevo producto al carrito
+            carrito.push(nuevoProducto);
+
+            // Guardar el carrito actualizado en localStorage
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+
+            // Mostrar mensaje de confirmación
+            $('#mensaje-confirmacion').css('display', 'block');
+
+            // Redireccionar a la página de carrito de compras después de un pequeño retraso
+            setTimeout(function() {
+                window.location.href = "{% url 'carrito' %}";
+            }, 1000);
+        }
+    </script>
+
+    <a href="{% url 'transbank' %}">
+        <img src="{% static 'img/transbank.png' %}" class="mt-4" style="display: block; margin-left: auto; margin-right: auto; width: 400px; height: 160px;">
+    </a>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

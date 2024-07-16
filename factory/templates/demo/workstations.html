@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WORKSTATIONS</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href={% static "css/style.css" %}>
+</head>
+<style>
+   
+</style>
+
+<body>
+    <nav class="navbar navbar-dark bg-transparent navbar-expand-lg">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'img/logofactory.jpg' %}" width="200" height="100" class="d-inline-block align-top" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'pc_armados' %}">PC armados <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'laboratorio' %}">Laboratorios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contacto_list' %}">Contacto</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Categorías
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'pc_gamer' %}">PC GAMERS</a>
+                        <a class="dropdown-item" href="{% url 'workstations' %}">WORKSTATIONS</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'home_office' %}">OFICINA-HOME OFFICE</a>
+                    </div>
+                </li>
+                <a href="{% url 'carrito' %}">
+                    <img src="{% static 'img/carrito-de-compras.png' %}" width="40" height="40" class="d-inline-block align-top" alt="Carrito de compras">
+                </a>
+            </ul>
+            <a href="{% url 'registrarse' %}">
+                <button>Registrarse</button>
+            </a>
+        </div>
+    </nav>
+    <div class="container">
+      <div class="card-container">
+          <div class="card">
+              <img class="card-img-top" src="{% static 'img/WORKSTATION1.avif' %}" alt="Image 1">
+              <div class="card-body">
+                  <h5 class="card-title">ThinkStation P3 Tower ¡Personalizable!</h5>
+                  <p class="card-text">
+                    <span class="new-price">$2.371.373</span>
+                      <span class="old-price">Precio web $3.161.831</span><br>
+                        Ahorra $790.458
+                        <strong>-25% de descuento</strong>
+                  </p>
+                  <button onclick="addToCart('ThinkStation P3 Tower ¡Personalizable!', 2371373)" class="btn btn-primary">Añadir al carro</button>
+              </div>
+          </div>
+          <div class="card">
+              <img class="card-img-top" src="{% static 'img/WORKSTATION2.webp' %}" alt="Image 2">
+              <div class="card-body">
+                  <h5 class="card-title">PC Workstation Intel Core i9-14900K, 128GB RAM, 1TB NVMe 4.0, WiFi 7</h5>
+                <p class="card-text">
+                      <span class="new-price">$2.326.170</span>
+                      Con Transferencia electrónica
+                      <span class="new-price">$2.454.110</span> 
+                      Con tarjeta crédito/débito
+                  </p>
+                  <button onclick="addToCart('PC Workstation Intel Core i9-14900K, 128GB RAM, 1TB NVMe 4.0, WiFi 7', 2326170, 2454110)" class="btn btn-primary">Añadir al carro</button>
+              </div>
+          </div>
+          <div class="card">
+              <img class="card-img-top" src="{% static 'img/WORKSTATION3.webp' %}" alt="Image 3">
+              <div class="card-body">
+                  <h5 class="card-title">PC Workstation Core i9-14900KF, RTX 4090, 64GB DDR5, 1TB NVMe, WiFi 7</h5>
+                  <p class="card-text">
+                      <span class="new-price">$4.429.740</span>
+                      Con Transferencia electrónica
+                      <span class="new-price">$4.673.380</span> 
+                      Con tarjeta crédito/débito
+                  </p>
+                  <button onclick="addToCart('PC Workstation Core i9-14900KF, RTX 4090, 64GB DDR5, 1TB NVMe, WiFi 7', 4429740, 4673380)" class="btn btn-primary">Añadir al carro</button>
+              </div>
+          </div>
+          <div class="card">
+              <img class="card-img-top" src="{% static 'img/WORKSTATION4.webp' %}" alt="Image 4">
+              <div class="card-body">
+                  <h5 class="card-title">PC Workstation Core i9-14900KF, RTX 4090, 128GB DDR5, 2TB NVMe, WiFi 7</h5>
+                  <p class="card-text">
+                    <span class="new-price">$4.429.740</span>
+                    Con Transferencia electrónica
+                    <span class="new-price">$4.673.380</span> 
+                    Con tarjeta crédito/débito
+                  </p>
+                  <button onclick="addToCart('PC Workstation Core i9-14900KF, RTX 4090, 128GB DDR5, 2TB NVMe, WiFi 7', 4429740, 4673380)" class="btn btn-primary">Añadir al carro</button>
+              </div>
+          </div>
+          <div class="card">
+              <img class="card-img-top" src="{% static 'img/WORKSTATION5.webp' %}" alt="Image 5">
+              <div class="card-body">
+                  <h5 class="card-title">Workstation Intel Core i9-14900KF RTX 4070Ti SUPER 128GB DDR5 4TB NVMe WiFi 6</h5>
+                  <p class="card-text">
+                    <span class="new-price">$3.526.210</span>
+                    Con Transferencia electrónica
+                    <span class="new-price">$3.720.160</span> 
+                    Con tarjeta crédito/débito
+                  </p>
+                  <button onclick="addToCart('Workstation Intel Core i9-14900KF RTX 4070Ti SUPER 128GB DDR5 4TB NVMe WiFi 6', 3526210, 3720160)" class="btn btn-primary">Añadir al carro</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Mensaje de confirmación -->
+  <div id="mensaje-confirmacion" class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
+      Añadido al carro.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+
+  <script>
+      // Función para añadir al carrito
+      function addToCart(producto, precioEfectivo, precioTarjeta) {
+          // Obtener el carrito actual del localStorage
+          var carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+          // Crear un nuevo objeto producto
+          var nuevoProducto = {
+              nombre: producto,
+              precio_efectivo: precioEfectivo,
+              precio_tarjeta: precioTarjeta
+          };
+
+          // Agregar el nuevo producto al carrito
+          carrito.push(nuevoProducto);
+
+          // Guardar el carrito actualizado en localStorage
+          localStorage.setItem('carrito', JSON.stringify(carrito));
+
+          // Mostrar mensaje de confirmación
+          $('#mensaje-confirmacion').css('display', 'block');
+
+          // Redireccionar a la página de carrito de compras después de un pequeño retraso
+          setTimeout(function() {
+              window.location.href = "{% url 'carrito' %}";
+          }, 1000);
+      }
+  </script>
+    <a href="{% url 'transbank' %}">
+      <img src="{% static 'img/transbank.png' %}" class="mt-4" style="display: block; margin-left: auto; margin-right: auto; width: 400px; height: 160px;">
+    </a>
+        
+    </body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

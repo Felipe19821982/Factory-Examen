@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenidos</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href={% static "css/style.css" %} />
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-transparent navbar-expand-lg">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            {% comment %} conexión a imagen {% endcomment %}
+            <img src="{% static 'img/logofactory.jpg' %}" width="200" height="100" class="d-inline-block align-top" alt="Logo"> 
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                     <a class="nav-link" href="{% url 'index' %}">Inicio <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'laboratorio' %}">Laboratorios</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'pc_armados' %}">PC armados <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contacto_list' %}">Contacto</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Categorías
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'pc_gamer' %}">PC GAMERS</a>
+                        <a class="dropdown-item" href="{% url 'workstations' %}">WORKSTATIONS</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'home_office' %}">OFICINA-HOME OFFICE</a>
+                    </div>
+                </li>
+                <a href="{% url 'carrito' %}">
+                    <img src="{% static 'img/carrito-de-compras.png' %}" width="40" height="40" class="d-inline-block align-top" alt="Carrito de compras">
+                </a>
+            </ul>
+            <a href="{% url 'registrarse' %}">
+                <button>Registrarse</button>
+            </a>
+        </div>
+    </nav>
+
+    <h1 class="text-center">BIENVENIDOS A MASTER FACTORY</h1>
+    <div class="container mt-4">
+        <div class="row mb-4">
+            <div class="col-sm-12">
+                <h2 class="text-center">TIPOS DE PC A LA VENTA!</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <h5 class="card-title">PC GAMERS</h5>
+                        <a href="{% url 'pc_gamer' %}">
+                            <img src={% static 'img/pcworkstation.jpg' %} class="card-img-top" alt="PC Gamer">
+                        </a>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <h5 class="card-title">WORKSTATIONS</h5>
+                        <a href="{% url 'workstations' %}">
+                            <img src={% static 'img/pcworkstation.jpg' %} class="card-img-top" alt="Workstation">
+                        </a>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <h5 class="card-title">OFICINA - HOME OFFICE</h5>
+                        <a href="{% url 'home_office' %}">
+                            <img src={% static 'img/pchome.jpg'%} class="card-img-top" alt="Oficina - Home Office">
+                        </a>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="{% url 'transbank' %}">
+        <img src={% static 'img/transbank.png'%}  class="mt-4" style="display: block; margin-left: auto; margin-right: auto; width: 400px; height: 160px;">
+    </a>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends "demo/base.html" %}
+
+
+{% block body %}
+
+
+
+{% endblock %}
+
+<div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+    <h1>Listado de Cursos</h1>
+    <div class="table-responsive py-2">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th colspan="2">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in solicitud %}
+                <tr>
+                    <td>{{s.codigo}}</td>
+                    <td>{{s.nombre}}</td>
+                    <td>{{s.cantidad}}</td>
+                    {% comment %} <td><a href="edicionCurso/{{c.codigo}}" class="btn btn-info">Editar</a></td>
+                    <td><a href="eliminarCurso/{{c.codigo}}" class="btn btn-danger btnEliminacion">Eliminar</a></td> {% endcomment %}
+                </tr> 
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+

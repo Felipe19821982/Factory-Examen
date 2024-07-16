@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integración Transbank</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href={% static "css/style.css" %}>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-transparent navbar-expand-lg">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'img/logofactory.jpg' %}" width="200" height="100" class="d-inline-block align-top" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'pc_armados' %}">PC armados <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'laboratorio' %}">Laboratorios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contacto_list' %}">Contacto</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Categorías
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'pc_gamer' %}">PC GAMERS</a>
+                        <a class="dropdown-item" href="{% url 'workstations' %}">WORKSTATIONS</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'home_office' %}">OFICINA-HOME OFFICE</a>
+                    </div>
+                </li>
+                <a href="{% url 'carrito' %}">
+                    <img src="{% static 'img/carrito-de-compras.png' %}" width="40" height="40" class="d-inline-block align-top" alt="Carrito de compras">
+                </a>
+            </ul>
+            <a href="{% url 'index' %}">
+                <button>Inicio</button>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-5"> <!-- Contenedor Bootstrap para centrar el contenido -->
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="text-center mb-4">Formulario de Pago</h2>
+
+                <form id="payment-form" action="url_de_tu_servidor_para_procesar_pago" method="POST">
+                    <div class="form-group">
+                        <label for="card_number">Número de Tarjeta:</label>
+                        <input type="text" id="card_number" name="card_number" class="form-control" required placeholder="XXX-XXX-XXX-XXX">
+                    </div>
+                    <div class="form-group">
+                        <label for="card_expiration">Fecha de Expiración (MM/YY):</label>
+                        <input type="text" id="card_expiration" name="card_expiration" class="form-control" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV:</label>
+                        <input type="text" id="cvv" name="cvv" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Monto a Pagar:</label>
+                        <input type="text" id="amount" name="amount" class="form-control" required>
+                    </div>
+
+                    <button type="button" onclick="payWithTransbank()" class="btn btn-primary btn-block">Pagar</button>
+                </form>
+
+                <img src="{% static 'img/transbank.png' %}" class="mt-4 mx-auto d-block" style="width: 400px; height: 160px;" alt="Transbank">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+
+    <!-- Incluir el script del SDK de Transbank -->
+    <script src="ruta_al_sdk_de_transbank/transbank-sdk.js"></script>
+
+    <script>
+        function payWithTransbank() {
+            // Recoger los datos del formulario
+            var cardNumber = document.getElementById('card_number').value;
+            var cardExpiration = document.getElementById('card_expiration').value;
+            var cvv = document.getElementById('cvv').value;
+            var amount = document.getElementById('amount').value;
+
+            // Llamar a la función del SDK de Transbank para procesar el pago
+            TransbankSDK.processPayment({
+                cardNumber: cardNumber,
+                cardExpiration: cardExpiration,
+                cvv: cvv,
+                amount: amount
+            }, function(response) {
+                // Aquí puedes manejar la respuesta del pago (éxito o error)
+                console.log(response);
+                alert('Pago procesado correctamente');
+            }, function(error) {
+                // Manejar errores de pago
+                console.error('Error al procesar el pago:', error);
+                alert('Error al procesar el pago');
+            });
+        }
+    </script>
+
+</body>
+</html>
