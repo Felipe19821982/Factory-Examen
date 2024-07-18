@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path # type: ignore
 from . import views
 
 urlpatterns = [
@@ -14,6 +14,7 @@ urlpatterns = [
     path('transbank/', views.transbank, name='transbank'),
     path('gestionsolicitudes/', views.gestionsolicitudes, name='gestionsolicitudes'),
     path('galeria/', views.galeria, name='galeria'),
+    path('registrate/', views.registrate, name='registrate'),
     
     # Rutas para autenticación y CRUD de usuarios
     path('login/', views.login_view, name='login'),

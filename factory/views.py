@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.contrib import messages
+from django.shortcuts import render, redirect # type: ignore
+from django.contrib.auth import login, authenticate, logout # type: ignore
+from django.contrib.auth.forms import UserCreationForm # type: ignore
+from django.contrib.auth.decorators import login_required # type: ignore
+from django.contrib.auth.models import User # type: ignore
+from django.contrib import messages # type: ignore
 
 def index(request):
     return render(request, 'demo/index.html')
@@ -91,3 +91,19 @@ def update_user(request, user_id):
         user.save()
         return redirect('user_crud')
     return render(request, 'admin/update_user.html', {'user': user})
+
+
+
+# PRUEBA DE REGISTRO
+def registrate(request):
+    if request.method != "POST":
+        context={"clase": "registrate"}
+        return render(request, 'demo/registrate.html', context)
+    else:
+        nombre = request.POST["nombre"]
+        email = request.POST["email"]
+        password = request.POST["password"]
+        user = User.objects.create_user(nombre, email, password)
+        user.save()
+        context={"clase": "registrate", "mensaje":"Los datos fueron registrados"}
+        return render(request, 'demo/registrate.html', context)
