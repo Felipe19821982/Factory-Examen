@@ -1,3 +1,4 @@
+<!-- templates/demo/base.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,16 +46,36 @@
                     <img src="{% static 'img/carrito-de-compras.png' %}" width="40" height="40" class="d-inline-block align-top" alt="Carrito de compras">
                 </a>
             </ul>
-            <a href="{% url 'registrate' %}">
-            <div >
-                <button>Registrarse</button>
-            </div>
-            </a> 
-            <a href="{% url 'login' %}">
-                <button>Login</button>
-            </a>
+            {% if user.is_authenticated %}
+                <div>
+                    <button>{{ user.username }}</button>
+                </div>
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'registrate' %}">
+                    <div>
+                        <button>Registrarse</button>
+                    </div>
+                </a> 
+                <a href="{% url 'login' %}">
+                    <button>Login</button>
+                </a>
+            {% endif %}
         </div>
     </nav>
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-primary" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
     {% block content %}{% endblock %}
 </body>
 </html>
+

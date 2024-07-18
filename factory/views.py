@@ -1,10 +1,14 @@
-from django.shortcuts import render, redirect # type: ignore
-from django.contrib.auth import login, authenticate, logout # type: ignore
-from django.contrib.auth.forms import UserCreationForm # type: ignore
-from django.contrib.auth.decorators import login_required # type: ignore
-from django.contrib.auth.models import User # type: ignore
-from django.contrib import messages # type: ignore
-from django.contrib.auth.views import LoginVie
+# views.py
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth.views import LoginView
+from django.contrib.sessions.models import Session
+from django.utils import timezone
+from django.db import IntegrityError
 
 def index(request):
     return render(request, 'demo/index.html')
@@ -40,12 +44,23 @@ def galeria(request):
     return render(request, 'demo/galeria.html')
 
 def registro(request):
+    if request.user.is_authenticated:
+        logout(request)
+    
+    Session.objects.filter(expire_date__lte=timezone.now()).delete()
+    
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Usuario registrado correctamente')
-            return redirect('login')
+            try:
+                form.save()
+                messages.success(request, 'Usuario registrado correctamente. Por favor, inicia sesión.')
+                return redirect('login')
+            except IntegrityError:
+                messages.error(request, 'El nombre de usuario o el correo electrónico ya están en uso.')
+        else:
+            for msg in form.error_messages:
+                messages.error(request, f"{msg}: {form.error_messages[msg]}")
     else:
         form = UserCreationForm()
     return render(request, 'registration/registrarse.html', {'form': form})
@@ -57,14 +72,19 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            messages.success(request, f'Bienvenido, {user.username}')
             return redirect('index')
         else:
             messages.error(request, 'Usuario o contraseña incorrectos')
     return render(request, 'registration/login.html')
 
 def logout_view(request):
-    logout(request)
-    return redirect('index')
+    if request.method == 'POST':
+        logout(request)
+        messages.success(request, 'Sesión cerrada correctamente')
+        return redirect('index')
+    else:
+        return redirect('index')
 
 @login_required
 def dashboard(request):
@@ -93,27 +113,26 @@ def update_user(request, user_id):
         return redirect('user_crud')
     return render(request, 'admin/update_user.html', {'user': user})
 
-
-
 # PRUEBA DE REGISTRO
 def registrate(request):
     if request.method != "POST":
-        context={"clase": "registrate"}
+        context = {"clase": "registrate"}
         return render(request, 'demo/registrate.html', context)
     else:
         nombre = request.POST["nombre"]
         email = request.POST["email"]
         password = request.POST["password"]
-        user = User.objects.create_user(nombre, email, password)
-        user.save()
-        context={"clase": "registrate", "mensaje":"Los datos fueron registrados"}
-        return render(request, 'demo/registrate.html', context)4
-    
-
+        try:
+            user = User.objects.create_user(nombre, email, password)
+            user.save()
+            context = {"clase": "registrate", "mensaje": "Los datos fueron registrados"}
+        except IntegrityError:
+            context = {"clase": "registrate", "mensaje": "El nombre de usuario o el correo electrónico ya están en uso."}
+        return render(request, 'demo/registrate.html', context)
 
 # PRUEBA DE MUESTRA DE LOGIN
 class CustomLoginView(LoginView):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('')  # Cambia 'home' por el nombre de tu vista de inicio
-        return super().dispatch(request, *args, **kwargs)   
+            return redirect('index')
+        return super().dispatch(request, *args, **kwargs)
