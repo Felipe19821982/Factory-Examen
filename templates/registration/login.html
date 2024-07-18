@@ -1,32 +1,26 @@
-{% extends 'demo/base.html' %}
-{% load static %}
-
-{% block title %}Login{% endblock %}
-
+{% extends "demo/base.html" %}
 {% block content %}
 <div class="container">
-    <div class="row">
-        {% if mensaje %}
-        <div class="alert alert-primary" role="alert" id="idMensaje">
-          {{ mensaje }}
-        </div>
-        {% endif %}
-        <h1>Login</h1><br>
-        ¿No tienes cuenta?<br>
-        <a href="{% url 'registro' %}">Regístrate</a>
-        <form method="POST">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username">
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-primary">Entrar</button>
-        </form>
+    <h1>Login</h1>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-primary" role="alert" id="idMensaje">
+      {{ message }}
     </div>
+    {% endfor %}
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary">Entrar</button>
+    </form>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
@@ -34,4 +28,4 @@
     $("#idMensaje").delay(2000).fadeOut("slow");
   })
 </script>
-{% endblock content %}
+{% endblock %}

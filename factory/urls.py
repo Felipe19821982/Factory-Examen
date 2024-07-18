@@ -3,7 +3,6 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('home/', views.home, name='home'),
     path('laboratorio/', views.laboratorio, name='laboratorio'),
     path('contacto_list/', views.contacto_list, name='contacto_list'),
     path('pc_armados/', views.pc_armados, name='pc_armados'),
@@ -11,12 +10,10 @@ urlpatterns = [
     path('workstations/', views.workstations, name='workstations'),
     path('home_office/', views.home_office, name='home_office'),
     path('carrito/', views.carrito, name='carrito'),
-    path('registrarse/', views.registrarse, name='registrarse'),
+    path('registrarse/', views.registro, name='registrarse'),
     path('transbank/', views.transbank, name='transbank'),
     path('gestionsolicitudes/', views.gestionsolicitudes, name='gestionsolicitudes'),
     path('galeria/', views.galeria, name='galeria'),
-    path('registro/', views.registro, name='registro'),
-    path('perfil/', views.perfil, name='perfil'),
     
     # Rutas para autenticación y CRUD de usuarios
     path('login/', views.login_view, name='login'),
@@ -24,5 +21,5 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('admin/crud/', views.user_crud, name='user_crud'),
     path('admin/crud/delete/<int:user_id>/', views.delete_user, name='delete_user'),
-    path('admin/crud/update/<int:user_id>/', views.update_user, name='update_user'),  # Corrige esta línea
+    path('admin/crud/update/<int:user_id>/', views.update_user, name='update_user'),
 ]
