@@ -1,0 +1,27 @@
+{% extends "demo/base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Gestión de Usuarios</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <a href="{% url 'update_user' user.id %}">Editar</a>
+                    <a href="{% url 'delete_user' user.id %}">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

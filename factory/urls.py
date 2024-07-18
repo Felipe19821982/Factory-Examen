@@ -1,10 +1,9 @@
-# factory/urls.py
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('index/', views.index, name='index'),
+    path('', views.index, name='index'),
+    path('home/', views.home, name='home'),
     path('laboratorio/', views.laboratorio, name='laboratorio'),
     path('contacto_list/', views.contacto_list, name='contacto_list'),
     path('pc_armados/', views.pc_armados, name='pc_armados'),
@@ -15,11 +14,15 @@ urlpatterns = [
     path('registrarse/', views.registrarse, name='registrarse'),
     path('transbank/', views.transbank, name='transbank'),
     path('gestionsolicitudes/', views.gestionsolicitudes, name='gestionsolicitudes'),
-    # path('registrarsolicitud/', views.registrarsolicitud, name= 'registrarsolicitud' )
-    # path('crud', views.crud, name='crud’),
-
-    path('', views.index, name='index'),
-    path('galeria', views.galeria, name='galeria'),
-    path('registro', views.registro, name='registro'),
-    path('perfil', views.perfil, name='perfil'),
+    path('galeria/', views.galeria, name='galeria'),
+    path('registro/', views.registro, name='registro'),
+    path('perfil/', views.perfil, name='perfil'),
+    
+    # Rutas para autenticación y CRUD de usuarios
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('admin/crud/', views.user_crud, name='user_crud'),
+    path('admin/crud/delete/<int:user_id>/', views.delete_user, name='delete_user'),
+    path('admin/crud/update/<int:user_id>/', views.update_user, name='update_user'),  # Corrige esta línea
 ]

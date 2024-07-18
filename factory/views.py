@@ -1,32 +1,20 @@
-# factory/views.py
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.contrib.sessions.models import Session
-from django.utils import timezone
-from .models import Solicitud
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from .models import Solicitud
 
-def index2(request):
-    context = {"clase": "index2"}
-    return render(request, 'demo/index2.html', context)
-
-def laboratorio(request):
-    context = {"clase": "laboratorio"}
-    return render(request, 'demo/laboratorio.html', context)
+def index(request):
+    return render(request, 'demo/index.html')
 
 def home(request):
     return render(request, 'demo/index.html')
 
+def laboratorio(request):
+    return render(request, 'demo/laboratorio.html')
+
 def contacto_list(request):
     return render(request, 'demo/contacto_list.html')
-
-# def registrarsolicitud(request):
-#     codigo=request.POST['txtCodigo']
-#     nombre=request.POST['txtNombre']
-#     cantidad=request.POST['numCantidad']
-
-    solicitud = solicitud.objects.create(codigo=codigo, nombre=nombre, cantidad= cantidad)
-    return redirect('/')
 
 def pc_armados(request):
     return render(request, 'demo/pc_armados.html')
@@ -43,7 +31,113 @@ def home_office(request):
 def carrito(request):
     return render(request, 'demo/carrito.html')
 
+def registrarse(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        user = User.objects.create_user(username=username, email=email, password=password)
+        user.save()
+        return redirect('login')
+    return render(request, 'registration/registrarse.html')
 
+def transbank(request):
+    return render(request, 'demo/transbank.html')
+
+def gestionsolicitudes(request):
+    solicitud = Solicitud.objects.all()
+    return render(request, "demo/gestionsolicitudes.html", {"solicitud": solicitud})
+
+def galeria(request):
+    return render(request, 'demo/galeria.html')
+
+def registro(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        user = User.objects.create_user(username=username, email=email, password=password)
+        user.save()
+        return redirect('login')
+    return render(request, 'demo/registro.html')
+
+@login_required
+def perfil(request):
+    return render(request, 'demo/perfil.html')
+
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('dashboard')
+        else:
+            return render(request, 'registration/login.html', {'error': 'Invalid username or password'})
+    return render(request, 'registration/login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+
+@login_required
+def dashboard(request):
+    return render(request, 'admin/dashboard.html')
+
+@login_required
+def user_crud(request):
+    users = User.objects.all()
+    return render(request, 'admin/user_crud.html', {'users': users})
+
+@login_required
+def delete_user(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    user.delete()
+    return redirect('user_crud')
+
+@login_required
+def update_user(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    if request.method == "POST":
+        user.username = request.POST['username']
+        user.email = request.POST['email']
+        if request.POST['password']:
+            user.set_password(request.POST['password'])
+        user.save()
+        return redirect('user_crud')
+    return render(request, 'admin/update_user.html', {'user': user})
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib import messages
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.sessions.models import Session
+from django.utils import timezone
+from .models import Solicitud
+from .forms import LoginForm
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('index')
+            else:
+                return render(request, 'registration/login.html', {'form': form, 'mensaje': 'Credenciales inválidas'})
+    else:
+        form = LoginForm()
+    return render(request, 'registration/login.html', {'form': form})
 
 def registrarse(request):
     if request.method != "POST":
@@ -58,54 +152,24 @@ def registrarse(request):
         context={"clase": "registro", "mensaje":"Los datos fueron registrados"}
         return render(request, 'demo/registrarse.html', context)
 
+# Define other views similarly
 
 
+def logout_view(request):
+    logout(request)
+    return redirect('login')
 
-def transbank(request):
-    return render(request, 'demo/transbank.html')
-
-
-def gestionsolicitudes(request):
-    solicitud = solicitud.objects.all()
-    return render(request, "demo/gestionsolicitudes.html", {"solicitud": solicitud})
-
-
-# PRUEBA DE VISTAS Y CONEXIONES DE LOGIIN
-
-def index(request):
-    context={"clase": "inicio"}
-    return render(request, 'demo/index.html', context)
-
+def registro(request):
+    if request.method == "POST":
+        username = request.POST["nombre"]
+        email = request.POST["email"]
+        password = request.POST["password"]
+        user = User.objects.create_user(username, email, password)
+        user.save()
+        messages.success(request, "Registration successful.")
+        return redirect('login')
+    return render(request, 'registration/registro.html')
 
 @login_required
 def perfil(request):
-    context={"clase": "perfil"}
-    return render(request, 'demo/perfil.html', context)
-
-def galeria(request):
-    users=get_current_users()
-    context={"clase": "galeria", "users":users}
-    return render(request, 'demo/galeria.html', context)
-
-
-def registro(request):
-    if request.method != "POST":
-        context={"clase": "registro"}
-        return render(request, 'demo/registro.html', context)
-    else:
-        nombre = request.POST["nombre"]
-        email = request.POST["email"]
-        password = request.POST["password"]
-        user = User.objects.create_user(nombre, email, password)
-        user.save()
-        context={"clase": "registro", "mensaje":"Los datos fueron registrados"}
-        return render(request, 'demo/registro.html', context)   
-    
-def get_current_users():
-    active_sessions = Session.objects.filter(expire_date__gte=timezone.now())
-    user_id_list = []
-    for session in active_sessions:
-        data = session.get_decoded()
-        user_id_list.append(data.get('_auth_user_id', None))
-    # Query all logged in users based on id list
-    return User.objects.filter(id__in=user_id_list)
+    return render(request, 'demo/perfil.html')

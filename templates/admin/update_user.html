@@ -1,0 +1,22 @@
+{% extends "demo/base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Actualizar Usuario</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" value="{{ user.username }}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" value="{{ user.email }}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password (dejar en blanco para mantener la actual):</label>
+            <input type="password" name="password" id="password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+    </form>
+</div>
+{% endblock content %}
