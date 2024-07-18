@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm # type: ignore
 from django.contrib.auth.decorators import login_required # type: ignore
 from django.contrib.auth.models import User # type: ignore
 from django.contrib import messages # type: ignore
+from django.contrib.auth.views import LoginVie
 
 def index(request):
     return render(request, 'demo/index.html')
@@ -106,4 +107,13 @@ def registrate(request):
         user = User.objects.create_user(nombre, email, password)
         user.save()
         context={"clase": "registrate", "mensaje":"Los datos fueron registrados"}
-        return render(request, 'demo/registrate.html', context)
+        return render(request, 'demo/registrate.html', context)4
+    
+
+
+# PRUEBA DE MUESTRA DE LOGIN
+class CustomLoginView(LoginView):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('')  # Cambia 'home' por el nombre de tu vista de inicio
+        return super().dispatch(request, *args, **kwargs)   

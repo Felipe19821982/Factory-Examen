@@ -1,5 +1,6 @@
 from django.urls import path # type: ignore
 from . import views
+from .views import CustomLoginView
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -23,4 +24,5 @@ urlpatterns = [
     path('admin/crud/', views.user_crud, name='user_crud'),
     path('admin/crud/delete/<int:user_id>/', views.delete_user, name='delete_user'),
     path('admin/crud/update/<int:user_id>/', views.update_user, name='update_user'),
+    path('accounts/login/', CustomLoginView.as_view(), name='login'),#PUEBA MUESTRA DE LOGIN
 ]
