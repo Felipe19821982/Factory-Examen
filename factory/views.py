@@ -1,7 +1,6 @@
 # views.py
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -9,6 +8,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.sessions.models import Session
 from django.utils import timezone
 from django.db import IntegrityError
+from .forms import CustomUserCreationForm
 
 def index(request):
     return render(request, 'demo/index.html')
@@ -50,7 +50,7 @@ def registro(request):
     Session.objects.filter(expire_date__lte=timezone.now()).delete()
     
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             try:
                 form.save()
@@ -59,10 +59,11 @@ def registro(request):
             except IntegrityError:
                 messages.error(request, 'El nombre de usuario o el correo electrónico ya están en uso.')
         else:
-            for msg in form.error_messages:
-                messages.error(request, f"{msg}: {form.error_messages[msg]}")
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'registration/registrarse.html', {'form': form})
 
 def login_view(request):
@@ -119,11 +120,14 @@ def registrate(request):
         context = {"clase": "registrate"}
         return render(request, 'demo/registrate.html', context)
     else:
-        nombre = request.POST["nombre"]
-        email = request.POST["email"]
-        password = request.POST["password"]
+        nombre = request.POST.get("nombre")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        if not nombre or not email or not password:
+            context = {"clase": "registrate", "mensaje": "Todos los campos son obligatorios."}
+            return render(request, 'demo/registrate.html', context)
         try:
-            user = User.objects.create_user(nombre, email, password)
+            user = User.objects.create_user(username=nombre, email=email, password=password)
             user.save()
             context = {"clase": "registrate", "mensaje": "Los datos fueron registrados"}
         except IntegrityError:

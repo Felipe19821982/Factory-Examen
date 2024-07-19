@@ -2,15 +2,15 @@
 {% extends "demo/base.html" %}
 {% block content %}
 <div class="container">
-    <h1>Registrarse</h1> 
+    <h1>Registrarse</h1>
     {% if messages %}
-    {% for message in messages %}
     <div class="alert alert-primary" role="alert" id="idMensaje">
-      {{ message }}
+        {% for message in messages %}
+        {{ message }}<br>
+        {% endfor %}
     </div>
-    {% endfor %}
     {% endif %}
-    <form method="POST">
+    <form method="POST" id="registrationForm">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Registrar</button>
@@ -19,7 +19,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
   $(document).ready(function(){
-    $("#idMensaje").delay(2000).fadeOut("slow");
-  })
+    $("#idMensaje").delay(5000).fadeOut("slow");
+
+    $("#registrationForm").on("submit", function(e) {
+      var isValid = true;
+      $("#registrationForm input").each(function() {
+        if ($(this).val() === "") {
+          isValid = false;
+          alert("Todos los campos son obligatorios.");
+          return false;
+        }
+      });
+
+      if (!isValid) {
+        e.preventDefault();
+      }
+    });
+  });
 </script>
 {% endblock %}
