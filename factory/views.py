@@ -85,6 +85,7 @@ def login_view(request):
         else:
             messages.error(request, 'Usuario o contraseña incorrectos')
     return render(request, 'registration/login.html')
+    
 
 def logout_view(request):
     if request.method == 'POST':
@@ -206,3 +207,4 @@ def eliminar_cliente(request, user_id):
     user.delete()
     messages.success(request, "Usuario eliminado correctamente.")
     return redirect('gestion_registro')
+
