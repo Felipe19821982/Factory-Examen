@@ -561,7 +561,7 @@ label{
 button{
   height: 45px; 
   padding-left: 5px;
-  padding-right: 5px;   
+  padding-right: -5px;   
   margin-bottom: 20px; 
   margin-top: 10px;   
   text-transform: uppercase;
@@ -569,7 +569,7 @@ button{
   border-color: #ab4493; 
   border-style: solid; 
   border-radius: 10px;  
-  width: 420px;   
+  width: 200px;   
   cursor: pointer;
 }
 

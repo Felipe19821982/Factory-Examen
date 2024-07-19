@@ -29,7 +29,7 @@
                             <td>{{ user.last_name }}</td>
                             <td>
                                 <a href="{% url 'edicion_cliente' user.id %}" class="btn btn-warning">Editar</a>
-                                <a href="{% url 'eliminar_cliente' user.id %}" class="btn btn-danger">Eliminar</a>
+                                <a href="{% url 'eliminar_cliente' user.id %}" class="btn btn-danger"onclick="alert('Eliminación completa')">Eliminar</a>
                             </td>
                         </tr>
                         {% endfor %}

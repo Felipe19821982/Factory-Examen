@@ -67,7 +67,7 @@
             <form action="contacto_list" method="POST">  {% csrf_token %}
                 <p>
                     <label for="Codigo" class="colocar_codigo">
-                        <span>Codigo</span>
+                        <span>Nombre y apellido</span>
                         <span class="obligatorio">*</span>
                     </label>
                     <input type="text" name="introducir_codigo" id="numCodigo" required="obligatorio" placeholder="Escribe tu codigo">
@@ -76,7 +76,7 @@
                       {% comment %} segunda casilla {% endcomment %}
                 <p>
                     <label for="Nombre" class="colocar_nombre">
-                        <span>Nombre y apellido</span>
+                        <span>Tipo de solicitud</span>
                         <span class="obligatorio">*</span>
                      </label>
                     <input type="text" name="introducir_nombre" id="txtNombre" required="obligatorio" placeholder="Escribe tu nombre y apellido">
@@ -85,14 +85,14 @@
                 {% comment %} tercera casilla {% endcomment %}
                 <p>
                     <label for="cantidad" class="colocar_cantidad">
-                        <span>Cantidad</span>
+                        <span>Numro de contacto</span>
                         <span class="obligatorio">*</span>
                     </label>
                     <input type="text" name="introducir_cantidad" id="numCantidad" required="obligatorio" placeholder="Escribe la cantidad propuesta">
                 </p>
 
 
-                <button type="submit" name="enviar_formulario" id="enviar">
+                <button href="{% url 'index' %} type="submit" name="enviar_formulario" id="enviar" onclick="alert('Solicitud enviada exitosamente')">
                     <p>Enviar</p>
                 </button>
                 <p class="aviso">
@@ -102,15 +102,6 @@
         </div>
     </div>
 
-
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
 
 
 </body>

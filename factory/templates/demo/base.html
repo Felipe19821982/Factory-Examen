@@ -48,13 +48,13 @@
             </ul>
             {% if user.is_authenticated %}
                 {% if user.username == 'admin' %}
-                    <a href="{% url 'gestion_registro' %}">
+                    <a href="{% url 'gestion_registro' %}"onclick="alert('ESTAS INGRESANDO COMO {{user.username}}')">
                         <button class="btn btn-primary">CRUD</button>
                     </a>
                 {% endif %}
-                <form method="POST" action="{% url 'logout' %}">
+                <form method="POST" action="{% url 'logout' %}" onclick="alert('Gracias por pasar por qui {{user.username}}')">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">Logout</button>
+                    <button type="submit" class="btn btn-danger" >Logout</button>
                 </form>
             {% else %}
                 <a href="{% url 'registrarse' %}">
