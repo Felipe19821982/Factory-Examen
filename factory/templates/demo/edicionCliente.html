@@ -1,0 +1,37 @@
+{% extends "demo/base.html" %}
+
+{% block title %}Edición de Usuario{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h2>Edición de Usuario</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url 'editar_cliente' %}" method="POST"> {% csrf_token %}
+                    <input type="hidden" name="user_id" value="{{ user.id }}">
+                    <div class="form-group">
+                        <label for="username">Nombre de Usuario</label>
+                        <input type="text" id="username" name="username" value="{{ user.username }}" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo</label>
+                        <input type="email" id="email" name="email" value="{{ user.email }}" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="first_name">Nombre</label>
+                        <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Apellidos</label>
+                        <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

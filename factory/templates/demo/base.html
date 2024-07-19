@@ -47,35 +47,25 @@
                 </a>
             </ul>
             {% if user.is_authenticated %}
-                <div>
-                    <button>{{ user.username }}</button>
-                </div>
+                {% if user.username == 'admin' %}
+                    <a href="{% url 'gestion_registro' %}">
+                        <button class="btn btn-primary">CRUD</button>
+                    </a>
+                {% endif %}
                 <form method="POST" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button type="submit">Logout</button>
+                    <button type="submit" class="btn btn-danger">Logout</button>
                 </form>
             {% else %}
-                <a href="{% url 'registrate' %}">
-                    <div>
-                        <button>Registrarse</button>
-                    </div>
-                </a> 
+                <a href="{% url 'registrarse' %}">
+                    <button class="btn btn-primary">Registrarse</button>
+                </a>
                 <a href="{% url 'login' %}">
-                    <button>Login</button>
+                    <button class="btn btn-primary">Login</button>
                 </a>
             {% endif %}
         </div>
     </nav>
-    {% if messages %}
-    <div class="container mt-3">
-        {% for message in messages %}
-        <div class="alert alert-primary" role="alert">
-            {{ message }}
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
     {% block content %}{% endblock %}
 </body>
 </html>
-

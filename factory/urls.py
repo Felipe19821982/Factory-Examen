@@ -26,4 +26,10 @@ urlpatterns = [
     path('admin/crud/delete/<int:user_id>/', views.delete_user, name='delete_user'),
     path('admin/crud/update/<int:user_id>/', views.update_user, name='update_user'),
     path('accounts/login/', CustomLoginView.as_view(), name='login'),  # Prueba de muestra de login
+    path('gestion_registro/', views.gestion_registro, name='gestion_registro'),
+    path('registrar_cliente/', views.registrar_cliente, name='registrar_cliente'),
+    path('edicion_cliente/<int:user_id>/', views.edicion_cliente, name='edicion_cliente'),
+    path('editar_cliente/', views.editar_cliente, name='editar_cliente'),
+    path('eliminar_cliente/<int:user_id>/', views.eliminar_cliente, name='eliminar_cliente'),
 ]
+
